@@ -16,6 +16,14 @@ layout: default
 </div>
 
 <div id="related">
+ <h4>Tags</h4>
+ <span>[
+  {% for tag in page.tags %}
+    {% capture tag_name %}{{ tag }}{% endcapture %}
+    <a href="/tag/{{ tag_name }}"><code class="highligher-rouge"><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+  {% endfor %}
+ ]</span>
+ 
   <h3>Related Posts</h3>
   <ul class="posts">
     {% for post in site.related_posts limit:3 %}
@@ -25,3 +33,5 @@ layout: default
     {% endfor %}
   </ul>
 </div>
+
+

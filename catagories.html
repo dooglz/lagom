@@ -1,0 +1,34 @@
+---
+layout: default
+title: Catagories
+---
+
+{% include collecttags.html %}
+
+
+{% comment %}
+=======================
+The purpose of this snippet is to list all your posts posted with a certain tag.
+=======================
+{% endcomment %}
+{% for cat in allcategories %}
+	<h3 id="{{ cat | slugify }}"><strong>{{ cat }}</strong></h3>
+	<ul>
+	 {% for post in site.posts %}
+		 {% if post.tags contains cat %}
+		 <li>
+		 <h4>
+		 <a href="{{ post.url }}">
+		 {{ post.title }}
+		 <small>{{ post.date | date_to_string }}</small>
+		 </a>
+		 <small>[
+		 {% for cat in post.tags %}
+			 <a class="catagory" href="/blog/tag/#{{ tag | slugify }}">{{ cat }}</a>
+		 {% endfor %}]</small>
+		 </h4>
+		 </li>
+		 {% endif %}
+	 {% endfor %}
+	</ul><br>
+{% endfor %}

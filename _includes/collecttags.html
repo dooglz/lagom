@@ -1,0 +1,65 @@
+{% comment %}
+=======================
+The following part extracts all the tags from your posts and sort tags, so that you do not need to manually collect your tags to a place.
+=======================
+{% endcomment %}
+
+{% assign rawtags = "" %}
+{% for post in site.posts %}
+	{% assign ttags = post.tags | join:'|' | append:'|' %}
+	{% assign rawtags = rawtags | append:ttags %}
+{% endfor %}
+{% assign rawtags = rawtags | split:'|' | sort %}
+
+
+{% comment %}
+=======================
+The following part removes dulpicated tags and invalid tags like blank tag.
+=======================
+{% endcomment %}
+
+{% assign alltags = "" %}
+{% for tag in rawtags %}
+	{% if tag != "" %}
+		{% if alltags == "" %}
+			{% assign alltags = tag | split:'|' %}
+		{% endif %}
+		{% unless alltags contains tag %}
+			{% assign alltags = alltags | join:'|' | append:'|' | append:tag | split:'|' %}
+		{% endunless %}
+	{% endif %}
+{% endfor %}
+
+
+{% comment %}
+=======================
+The following part extracts all the Catagories from your posts and sort Catagories, so that you do not need to manually collect your Catagories to a place.
+=======================
+{% endcomment %}
+
+
+{% assign rawcategories = "" %}
+{% for post in site.posts %}
+	{% assign tcategories = post.categories | join:'|' | append:'|' %}
+	{% assign rawcategories = rawcategories | append:tcategories %}
+{% endfor %}
+{% assign rawcategories = rawcategories | split:'|' | sort %}
+
+{% comment %}
+=======================
+The following part removes dulpicated tags and invalid tags like blank tag.
+=======================
+{% endcomment %}
+
+
+{% assign allcategories = "" %}
+{% for cat in rawcategories %}
+	{% if cat != "" %}
+		{% if allcategories == "" %}
+			{% assign allcategories = cat | split:'|' %}
+		{% endif %}
+		{% unless allcategories contains cat %}
+			{% assign allcategories = allcategories | join:'|' | append:'|' | append:cat | split:'|' %}
+		{% endunless %}
+	{% endif %}
+{% endfor %}
